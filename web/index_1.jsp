@@ -16,6 +16,8 @@
     <title>Lime List Management System</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/DT-Tables/css/dataTables.bootstrap4.min.css">
+    <link href="assets/DT-Tables/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/bootstrap/css/bootstrap-glyphicons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/bootstrap/maps/glyphicons-fontawesome.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/footable.bootstrap.css">
@@ -25,6 +27,12 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link href="assets/offcanvas.css" rel="stylesheet">
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="assets/DT-Tables/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/DT-Tables/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="assets/DT-Tables/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+    <script src="assets/DT-Tables/js/dataTables.responsive.min.js" type="text/javascript"></script>
+    <script src="assets/DT-Tables/js/responsive.bootstrap4.min.js" type="text/javascript"></script>
 
 </head>
 
@@ -334,56 +342,149 @@
 
                                 <div class="tab-pane fade" id="nav-records">
 
-                                    <h6 class="border-bottom border-gray pb-2 mb-0 mt-2"> Records</h6>
-                                    <div class="text-muted pl-5 pt-3 bg-light">
-
-                                        <div class="row">
-                                            <div class="table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl">
-                                            <table id="TableResults" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <h6 class="border-bottom border-gray pb-2 mb-5 mt-2"> Records</h6>
+                                 
+                                            <table id="TableResults" class="table table-bordered dt-responsive" cellspacing="0" width="100%">
                                                 <thead>
                                                     <tr>
-                                                        <td>County</td>
-                                                        <td>Sub County</td> 
-                                                        <td>Ward</td>
-                                                        <td>Facility</td>
-                                                        <td>MFL Code</td>
-                                                        <td>Clients Name</td>
-                                                        <td>Patient CCC Number (MFL+ XXXXX)</td>
-                                                        <td>Gender (F/M)</td>
-                                                        <td>Phone No</td>
-                                                        <td>Physical Address</td>
-                                                        <td>Date of Birth</td>
-                                                        <td>Unique identifier</td>
-                                                        <td>Unique_ID_Duplicates</td>
-                                                        <td>Age</td>
-                                                        <td>Age bracket</td>
-                                                        <td>Date confirmed HIVPositive(dd/mm/yyyy)</td>
-                                                        <td>Enrollment date(yyyy/dd/mm)</td>
-                                                        <td>ART start date(dd/mm/yyyy)</td>
-                                                        <td>Expected return date (TCA)(dd/mm/yyyy)</td>
-                                                        <td>Attempt Date</td>
-                                                        <td>Who attempted Contact</td> 
-                                                        <td>Phone call</td>
-                                                        <td>Tracing Outcome</td> 
-                                                        <td>Status of not-reached</td>
-                                                        <td>Date resumed treatment</td>
-                                                        <td>Comments</td> 
-                                                        <td>Duplicates</td>
+                                                        <th>County</th>
+                                                        <th>S.County</th>
+                                                        <th>Facility</th>
+                                                        <th>MFL</th>
+                                                        <th>C.Name</th>
+                                                        <th>CCC #</th>
+                                                        <th>Gender</th>
+                                                        <th>Phone</th>
+                                                        <th>Address</th>
+                                                        <th>DOB</th>
+                                                        <th>Unique</th>
+                                                        <th>Age</th>
+                                                        <th>Date C.+ve</th>
+                                                        <th>Enrollment DT</th>
+                                                        <th>ART Start DT</th>
+                                                        <th>Expected R.Date</th>
+                                                        <th>Attempted Date</th>
+                                                        <th>Attempted By</th>
+                                                        <th>Tracing Method</th>
+                                                        <th>Tracing Out Come</th>
+                                                        <th>Status</th>
+                                                        <th>DT. Resumed TX</th>
+                                                        <th>Comment</th>
+                                                        <th>EX18</th>
                                                     </tr>
                                                 </thead>
-
-                                                <tfoot>
-
-                                                </tfoot>
-
                                                 <tbody>
+                                                    <tr>
+                                                        <td>Tiger Nixon</td>
+                                                        <td>System Architect</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>61</td>
+                                                        <td>2011/04/25</td>
+                                                        <td>$320,800</td>
+                                                        <td>Sample 1</td>
+                                                        <td>Sample 2</td>
+                                                        <td>Sample 3</td>
+                                                        <td>Sample 4</td>
+                                                        <td>Sample 5</td>
+                                                        <td>Sample 6</td>
+                                                        <td>Sample 7</td>
+                                                        <td>Sample 8</td>
+                                                        <td>Sample 9</td>
+                                                        <td>Sample 10</td>
+                                                        <td>Sample 11</td>
+                                                        <td>Sample 12</td>
+                                                        <td>Sample 13</td>
+                                                        <td>Sample 14</td>
+                                                        <td>Sample 15</td>
+                                                        <td>Sample 16</td>
+                                                        <td>Sample 17</td>
+                                                        <td>Sample 18</td>
 
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tiger Nixon</td>
+                                                        <td>System Architect</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>61</td>
+                                                        <td>2011/04/25</td>
+                                                        <td>$320,800</td>
+                                                        <td>Sample 1</td>
+                                                        <td>Sample 2</td>
+                                                        <td>Sample 3</td>
+                                                        <td>Sample 4</td>
+                                                        <td>Sample 5</td>
+                                                        <td>Sample 6</td>
+                                                        <td>Sample 7</td>
+                                                        <td>Sample 8</td>
+                                                        <td>Sample 9</td>
+                                                        <td>Sample 10</td>
+                                                        <td>Sample 11</td>
+                                                        <td>Sample 12</td>
+                                                        <td>Sample 13</td>
+                                                        <td>Sample 14</td>
+                                                        <td>Sample 15</td>
+                                                        <td>Sample 16</td>
+                                                        <td>Sample 17</td>
+                                                        <td>Sample 18</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tiger Nixon</td>
+                                                        <td>System Architect</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>61</td>
+                                                        <td>2011/04/25</td>
+                                                        <td>$320,800</td>
+                                                        <td>Sample 1</td>
+                                                        <td>Sample 2</td>
+                                                        <td>Sample 3</td>
+                                                        <td>Sample 4</td>
+                                                        <td>Sample 5</td>
+                                                        <td>Sample 6</td>
+                                                        <td>Sample 7</td>
+                                                        <td>Sample 8</td>
+                                                        <td>Sample 9</td>
+                                                        <td>Sample 10</td>
+                                                        <td>Sample 11</td>
+                                                        <td>Sample 12</td>
+                                                        <td>Sample 13</td>
+                                                        <td>Sample 14</td>
+                                                        <td>Sample 15</td>
+                                                        <td>Sample 16</td>
+                                                        <td>Sample 17</td>
+                                                        <td>Sample 18</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tiger Nixon</td>
+                                                        <td>System Architect</td>
+                                                        <td>Edinburgh</td>
+                                                        <td>61</td>
+                                                        <td>2011/04/25</td>
+                                                        <td>$320,800</td>
+                                                        <td>Sample 1</td>
+                                                        <td>Sample 2</td>
+                                                        <td>Sample 3</td>
+                                                        <td>Sample 4</td>
+                                                        <td>Sample 5</td>
+                                                        <td>Sample 6</td>
+                                                        <td>Sample 7</td>
+                                                        <td>Sample 8</td>
+                                                        <td>Sample 9</td>
+                                                        <td>Sample 10</td>
+                                                        <td>Sample 11</td>
+                                                        <td>Sample 12</td>
+                                                        <td>Sample 13</td>
+                                                        <td>Sample 14</td>
+                                                        <td>Sample 15</td>
+                                                        <td>Sample 16</td>
+                                                        <td>Sample 17</td>
+                                                        <td>Sample 18</td>
+
+                                                    </tr>
                                                 </tbody>
                                             </table>
-
-                                        </div>
-                                        </div>
-                                    </div>
+                             
 
                                 </div>
 
@@ -407,13 +508,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="pouchdb-7.0.0.min.js"></script>
     <script src="pouchdb.find.min.js"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="assets/DT-Tables/js/jquery-3.3.1.min.js" ></script>
-    <script language="JavaScript" src="assets/DT-Tables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script language="JavaScript" src="assets/DT-Tables/js/dataTables.bootstrap.js" type="text/javascript"></script>
 
-
-    <link rel="stylesheet" type="text/css" href="assets/DT-Tables/css/dataTables.bootstrap.css">
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="assets/bootstrap/js/bootstrap.min.js" ></script>
     <script src="js/jquery.validate.min.js"></script>
@@ -438,7 +533,7 @@
                                                             $(document).ready(function () {
                                                                 $('#TableResults').dataTable();
 
-                                                                $("[data-toggle=tooltip]").tooltip();
+                                                                // $("[data-toggle=tooltip]").tooltip();
 
                                                             });
 

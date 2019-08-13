@@ -224,23 +224,19 @@ function modeReset() {
 //show all records in table rows
 function addRecord(record) {
     var data = record.doc;
-    var newdata = "<tr><td> " + data.County +
-        " </td><td >" + data.subcounty +
-        " </td><td class='toggleDisplay'>" + data.subcounty +
-        "</td><td class='toggleDisplay'>" + data.Ward +
+    var newdata = "<td> " + data.County +
+           " </td><td>" + data.subcounty +
         "</td><td>" + data.SubPartnerNom +
-        "</td><td class='toggleDisplay'>" + data.Mflcode +
+        "</td><td>" + data.Mflcode +
         " </td><td>" + data.ClientName +
-        " </td><td class='toggleDisplay'>" + data.PatientCCC +
-        "</td><td class='toggleDisplay'>" + data.Gender +
+        " </td><td>" + data.PatientCCC +
+        "</td><td>" + data.Gender +
         " </td><td>" + data.PhoneNo +
         "</td><td>" + data.PhysicalAddress +
-        "</td><td class='toggleDisplay'>" + data.DOB +
-        "</td><td class='toggleDisplay'>" + data.UniqueIdentifier +
-        "</td><td class='toggleDisplay'>" + data.UniqueDups +
-        "</td><td class='toggleDisplay'>" + data.Age +
-        "</td><td class='toggleDisplay'>" + data.AgeBracket +
-        "</td><td class='toggleDisplay'>" + data.DateConfirmed +
+        "</td><td >" + data.DOB +
+        "</td><td >" + data.UniqueIdentifier +
+        "</td><td>" + data.Age +
+        "</td><td>" + data.DateConfirmed +
         "</td><td>" + data.EnrollmentDate +
         "</td><td>" + data.ARTStartDate +
         "</td><td>" + data.LastVisit +
@@ -254,9 +250,9 @@ function addRecord(record) {
         "</td><td>" + data.Comments +
         "</td><td><button title='Edit!' class='btn-info' href='#nav-home' data-toggle='tab' onclick='loadSavedRecordData(\"" + data._id + "\",\"" + data.Mflcode + "\",\"no\")'><i class='glyphicon glyphicon-edit'></i></button>" +
         "<button id='delete' title='Delete!' class='btn-danger' data-id='" + data._id + "'><i class='glyphicon glyphicon-trash'></i></button>" +
-        "</td></tr>";
-    $('#TableResults tbody').append(newdata);
-    $('#DemoTable tbody').append(newdata);
+        "</td>";
+    //$('#TableResults tbody tr').append(newdata);
+   // $('#example tbody tr').append(newdata);
 }
 
 function deleteRecord(id) {
@@ -268,7 +264,7 @@ function ShowRecords() {
     //get all data from the db
     return LocalDB.allDocs({ include_docs: true, ascending: true }).then(function (records) {
         // console.log(doc);
-        $('#TableResults tbody').html('');
+       // $('#TableResults tbody tr').html('');
 
         $.each(records.rows, function (i, record) {
             addRecord(record);
@@ -276,9 +272,7 @@ function ShowRecords() {
 
     });
 }
-$(document).ready(function () {
-    $('.table').footable();
-});
+
 
 //when a new entry is added to/removed from update the records table
 LocalDB.changes({
