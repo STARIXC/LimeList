@@ -10,11 +10,6 @@ var LocalDB = new PouchDB('LTFU_Data');
 //var RenoteDB = false;
 var RemoteDB = 'http://127.0.0.1:5984/ltfu_data/';
 
-
-//when user clicks "save " while editing a record
-$("#click-me").click(function() {
-    $(".table .toggleDisplay").toggleClass("in");
-}); 
 $("#save_data").click(function () {
     $('#loading').html('<img src="images/ajax-loader.gif"> loading...');
     //run saveArticle function, which will run validation, save if validated
@@ -224,35 +219,36 @@ function modeReset() {
 //show all records in table rows
 function addRecord(record) {
     var data = record.doc;
-    var newdata = "<td> " + data.County +
-           " </td><td>" + data.subcounty +
-        "</td><td>" + data.SubPartnerNom +
-        "</td><td>" + data.Mflcode +
-        " </td><td>" + data.ClientName +
-        " </td><td>" + data.PatientCCC +
-        "</td><td>" + data.Gender +
-        " </td><td>" + data.PhoneNo +
-        "</td><td>" + data.PhysicalAddress +
-        "</td><td >" + data.DOB +
-        "</td><td >" + data.UniqueIdentifier +
-        "</td><td>" + data.Age +
-        "</td><td>" + data.DateConfirmed +
-        "</td><td>" + data.EnrollmentDate +
-        "</td><td>" + data.ARTStartDate +
-        "</td><td>" + data.LastVisit +
-        "</td><td>" + data.ExpectedReturn +
-        "</td><td>" + data.AttemptedDate +
-        "</td><td>" + data.AttemptedBy +
-        "</td><td>" + data.PhoneCall +
-        "</td><td>" + data.TracingOutcome +
-        "</td><td>" + data.NotReachedStatus +
-        "</td><td>" + data.DateResummedTreatment +
-        "</td><td>" + data.Comments +
-        "</td><td><button title='Edit!' class='btn-info' href='#nav-home' data-toggle='tab' onclick='loadSavedRecordData(\"" + data._id + "\",\"" + data.Mflcode + "\",\"no\")'><i class='glyphicon glyphicon-edit'></i></button>" +
-        "<button id='delete' title='Delete!' class='btn-danger' data-id='" + data._id + "'><i class='glyphicon glyphicon-trash'></i></button>" +
-        "</td>";
-    //$('#TableResults tbody tr').append(newdata);
-   // $('#example tbody tr').append(newdata);
+    var newdata = "<tr>" +
+            "<td> " + data.County + " </td>" +
+            "<td>" + data.subcounty +"</td>"+
+            "<td>" + data.SubPartnerNom +"</td>"+
+            "<td>" + data.Mflcode +
+            " </td><td>" + data.ClientName +
+            " </td><td>" + data.PatientCCC +
+            "</td><td>" + data.Gender +
+            " </td><td>" + data.PhoneNo +
+            "</td><td>" + data.PhysicalAddress +
+            "</td><td >" + data.DOB +
+            "</td><td >" + data.UniqueIdentifier +
+            "</td><td>" + data.Age +
+            "</td><td>" + data.DateConfirmed +
+            "</td><td>" + data.EnrollmentDate +
+            "</td><td>" + data.ARTStartDate +
+            "</td><td>" + data.LastVisit +
+            "</td><td>" + data.ExpectedReturn +
+            "</td><td>" + data.AttemptedDate +
+            "</td><td>" + data.AttemptedBy +
+            "</td><td>" + data.PhoneCall +
+            "</td><td>" + data.TracingOutcome +
+            "</td><td>" + data.NotReachedStatus +
+            "</td><td>" + data.DateResumedTreatment +
+            "</td><td>" + data.Comments +
+            "</td><td><button title='Edit!' class='btn-info' href='#nav-home' data-toggle='tab' onclick='loadSavedRecordData(\"" + data._id + "\",\"" + data.Mflcode + "\",\"no\")'><i class='glyphicon glyphicon-edit'></i></button>" +
+            "<button id='delete' title='Delete!' class='btn-danger' data-id='" + data._id + "'><i class='glyphicon glyphicon-trash'></i></button>" +
+            "</td></tr>";
+    // $('#TableResults tbody').append(newdata);
+    $('#example tbody ').append(newdata);
 }
 
 function deleteRecord(id) {
@@ -262,9 +258,10 @@ function deleteRecord(id) {
 }
 function ShowRecords() {
     //get all data from the db
-    return LocalDB.allDocs({ include_docs: true, ascending: true }).then(function (records) {
+    return LocalDB.allDocs({include_docs: true, ascending: true}).then(function (records) {
         // console.log(doc);
-       // $('#TableResults tbody tr').html('');
+        //$('#TableResults tbody').html('');
+        $('#example tbody').html('');
 
         $.each(records.rows, function (i, record) {
             addRecord(record);
@@ -331,7 +328,7 @@ function patasubcounty() {
     var subcounty = "<option value=''>Select Sub-County</option>";
     dbs.find({
         selector: {
-            active: { $eq: '1' },
+            active: {$eq: '1'},
             CountyID: county
         }
         //fields: ['_id', 'CountyID'],
@@ -342,7 +339,7 @@ function patasubcounty() {
         console.log(list);
 
         for (var a = 0; a <
-            list['docs'].length; a++) {
+                list['docs'].length; a++) {
 
             subcounty += "<option value='" + list['docs'][a]['DistrictID'] + "'>" + list['docs'][a]['DistrictNom'] + "</option>";
 
@@ -390,7 +387,7 @@ function patafacility() {
     var facilities = "<option value=''>Select Facility</option>";
     db.find({
         selector: {
-            active: { $eq: '1' },
+            active: {$eq: '1'},
             DistrictID: subc
         }
         //fields: ['_id', 'CountyID'],
@@ -401,7 +398,7 @@ function patafacility() {
         console.log(facility);
 
         for (var k = 0; k <
-            facility['docs'].length; k++) {
+                facility['docs'].length; k++) {
             facilities += "<option id='facility_select' value='" + facility['docs'][k]['DistrictID'] + "' data-subpartnerid='" + facility['docs'][k]['SubPartnerID'] + "' data-mfl='" + facility['docs'][k]['CentreSanteId'] + "' data-facility='" + facility['docs'][k]['SubPartnerNom'] + "' >" + facility['docs'][k]['SubPartnerNom'] + " </option>";
             // $("#subcounty").append("<option value='" +list['docs'][a]['DistrictID']  + "'>" + list['docs'][a]['DistrictNom'] + "</option>");
         }//end of for loop
@@ -417,12 +414,12 @@ function patafacility() {
 
 function sync() {
     db.sync(remotedb)
-        .on('complete', function () {
-            console.log('All data has been sync!');
-        })
-        .on('error', function (err) {
-            console.log('The sync has failed!');
-        });
+            .on('complete', function () {
+                console.log('All data has been sync!');
+            })
+            .on('error', function (err) {
+                console.log('The sync has failed!');
+            });
 }
 
 $("#showRecords").on("click", ".btn_edit", function () {
@@ -604,7 +601,7 @@ function saveEditRecord(id, SubPartnerID, registrationdate, quarter, year, sex, 
             //SubPartnerID= subPartnerID;
             doc.ClientName = ClientsName;
             doc.PatientCCC = PatientCCC;
-           doc. Gender = Gender;
+            doc.Gender = Gender;
             doc.PhoneNo = PhoneNo;
             doc.PhysicalAddress = PhysicalAddress;
             doc.DOB = DOB;
