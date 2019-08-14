@@ -83,8 +83,8 @@
     <div class="nav-scroller bg-default box-shadow">
         <nav class="nav nav-underline">
             <a class="nav-link active" href="#">Dashboard</a>
-            <a class="nav-link" href="index.jsp">Maternal/ART</a>
-            <!--  <a class="nav-link" href="#">
+              <!--  <a class="nav-link" href="index.jsp">Maternal/ART</a>
+          <a class="nav-link" href="#">
                   Friends
                   <span class="badge badge-pill bg-light align-text-bottom">27</span>
               </a>
@@ -119,7 +119,7 @@
             <a class="btn btn-danger col-md-6" title="Help" data-toggle="modal" href="#help">
                 <i class="glyphicon glyphicon-question-sign"></i>
                 <br> Help
-            </a>  
+            </a>
         </div>
 
 
@@ -164,7 +164,7 @@
                                                             <option value="8"> Turkana</option>
                                                         </select>
                                                     </div>
-                                                </div> 
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="subCounty">Sub-County</label>
@@ -425,6 +425,5 @@
          */
     %>
     <script src="js/app.js"></script>
-   
 </body>
 </html>
