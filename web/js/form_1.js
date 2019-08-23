@@ -31,37 +31,30 @@ function saveRecord() {
 
     //create variables from the form
     var user_id = $('#id').val();
-    var Id = $('#patientNumber').val() + "_" + $('#age').val();
-    var County = $('#county').val();
-    var subcounty = $('#subcounty').val();
-    var ward = $('#facility_select').data('ward');
+    var Id =  $('#facility_select').data('mfl') + "_" + $('#patientNumber').val() +"-"+ $('#age').val(); ;
+    var County = $('select#county').data('county');
+    var subcounty = $('select#subcounty').data('name');
     var SubPartnerNom = $('#facility_select').data('facility');
     var mflcode = $('#facility_select').data('mfl');
-    //var subPartnerID = $('#facility_select').data('subpartnerid');
     var ClientsName = $('#clientName').val();
-    var PatientCCC = $('#patientNumber').val();
+    var PatientCCC = mflcode + "_" + $('#patientNumber').val();
     var Gender = $('#gender').val();
+    var Age = $('#age').val();
     var PhoneNo = $('#phoneNumber').val();
     var PhysicalAddress = $('#physicalAddress').val();
-    var DOB = $('#dateOfBirth').val();
-    var UniqueIdentifier = $('#uniqueIdentifier').val();
-    var UniqueDups = $('#uniqueIdDuplicates').val();
-    var Age = $('#age').val();
-    var AgeBracket = $('#ageBracket').val();
-
-
     var DateConfirmed = $('#dateConfirmed').val();
     var EnrollmentDate = $('#enrollmentDate').val();
     var ArtStartDate = $('#artStartDate').val();
     var LastVisitDate = $('#lastVisitDate').val();
     var ExpectedReturnDate = $('#expectedReturnDate').val();
+    var DateResumed = $('#dateResumed').val();
     var AttemptedDate = $('#attemptedDate').val();
     var AttemptedBy = $('#attemptedBy').val();
-    var PhoneCall = $('#phoneCall').val();
+    var TypeofFollowUp = $('#typeOfFollowUp').val();
     var TracingOutcome = $('#tracingOutcome').val();
-    var NotReached = $('#notReachedStatus').val();
-    var DateResumed = $('#dateResumed').val();
+    var OutcomeStatus = $('#rco-nro').val();
     var Comment = $('#comment').val();
+    var patientStatus=$('patientStatus').val();
     var record = {
         //createded and updated wihout user input
         _id: Id,
@@ -69,20 +62,14 @@ function saveRecord() {
         id: Id,
         County: County,
         subcounty: subcounty,
-        ward: ward,
         SubPartnerNom: SubPartnerNom,
         Mflcode: mflcode,
-        //SubPartnerID: subPartnerID,
-        ClientName: ClientsName,
+       ClientName: ClientsName,
         PatientCCC: PatientCCC,
         Gender: Gender,
+        Age: Age,
         PhoneNo: PhoneNo,
         PhysicalAddress: PhysicalAddress,
-        DOB: DOB,
-        UniqueIdentifier: UniqueIdentifier,
-        UniqueDups: UniqueDups,
-        Age: Age,
-        AgeBracket: AgeBracket,
         DateConfirmed: DateConfirmed,
         EnrollmentDate: EnrollmentDate,
         ARTStartDate: ArtStartDate,
@@ -90,11 +77,12 @@ function saveRecord() {
         ExpectedReturn: ExpectedReturnDate,
         AttemptedDate: AttemptedDate,
         AttemptedBy: AttemptedBy,
-        PhoneCall: PhoneCall,
+        Tfollowup: TypeofFollowUp,
         TracingOutcome: TracingOutcome,
-        NotReachedStatus: NotReached,
+        OutcomeStatus: OutcomeStatus,
         DateResumedTreatment: DateResumed,
         Comments: Comment,
+        patientStatus:patientStatus,
         timestamp: new Date().getTime(),
         user_id: user_id
     };
@@ -110,7 +98,7 @@ function saveRecord() {
                 $('#loading').fadeOut('slow');
             }, 2000);
         } else {
-
+            result = "something went wrong";
 
         }
 
@@ -210,28 +198,23 @@ function validateForm() {
 //reset page to start, 
 function modeReset() {
     //scroll to top of page
-    //thx to SO: https://stackoverflow.com/questions/4210798/how-to-scroll-to-top-of-page-with-javascript-jquery
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    scrollTop();
     //reset the form and hash
     recordForm.reset();
 } //end modeReset
-
+function scrollTop() {
+    //scroll to top of page
+    //thx to SO: https://stackoverflow.com/questions/4210798/how-to-scroll-to-top-of-page-with-javascript-jquery
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+}
 //show all records in table rows
 function addRecord(record) {
     var data = record.doc;
     var newdata = "<tr>" +
-            "<td> " + data.County + " </td>" +
-            "<td>" + data.subcounty +"</td>"+
-            "<td>" + data.SubPartnerNom +"</td>"+
-            "<td>" + data.Mflcode +
             " </td><td>" + data.ClientName +
             " </td><td>" + data.PatientCCC +
-            "</td><td>" + data.Gender +
             " </td><td>" + data.PhoneNo +
             "</td><td>" + data.PhysicalAddress +
-            "</td><td >" + data.DOB +
-            "</td><td >" + data.UniqueIdentifier +
-            "</td><td>" + data.Age +
             "</td><td>" + data.DateConfirmed +
             "</td><td>" + data.EnrollmentDate +
             "</td><td>" + data.ARTStartDate +
@@ -239,16 +222,17 @@ function addRecord(record) {
             "</td><td>" + data.ExpectedReturn +
             "</td><td>" + data.AttemptedDate +
             "</td><td>" + data.AttemptedBy +
-            "</td><td>" + data.PhoneCall +
+            "</td><td>" + data.Tfollowup +
             "</td><td>" + data.TracingOutcome +
-            "</td><td>" + data.NotReachedStatus +
+            "</td><td>" + data.OutcomeStatus +
             "</td><td>" + data.DateResumedTreatment +
             "</td><td>" + data.Comments +
             "</td><td><button title='Edit!' class='btn-info' href='#nav-home' data-toggle='tab' onclick='loadSavedRecordData(\"" + data._id + "\",\"" + data.Mflcode + "\",\"no\")'><i class='glyphicon glyphicon-edit'></i></button>" +
             "<button id='delete' title='Delete!' class='btn-danger' data-id='" + data._id + "'><i class='glyphicon glyphicon-trash'></i></button>" +
             "</td></tr>";
     // $('#TableResults tbody').append(newdata);
-    $('#example tbody ').append(newdata);
+    $('#example tbody').append(newdata);
+    //$('#example-1 tbody ').append(newdata);
 }
 
 function deleteRecord(id) {
@@ -259,7 +243,7 @@ function deleteRecord(id) {
 function ShowRecords() {
     //get all data from the db
     return LocalDB.allDocs({include_docs: true, ascending: true}).then(function (records) {
-        // console.log(doc);
+        // console.log(records);
         //$('#TableResults tbody').html('');
         $('#example tbody').html('');
 
@@ -341,7 +325,7 @@ function patasubcounty() {
         for (var a = 0; a <
                 list['docs'].length; a++) {
 
-            subcounty += "<option value='" + list['docs'][a]['DistrictID'] + "'>" + list['docs'][a]['DistrictNom'] + "</option>";
+            subcounty += "<option value='" + list['docs'][a]['DistrictID'] + "' data-name='" + list['docs'][a]['DistrictNom'] + "'>" + list['docs'][a]['DistrictNom'] + "</option>";
 
         }//end of for loop
         $("#subcounty").html(subcounty.replace("<option value=''>Select SubCounty</option>", ""));
@@ -399,7 +383,7 @@ function patafacility() {
 
         for (var k = 0; k <
                 facility['docs'].length; k++) {
-            facilities += "<option id='facility_select' value='" + facility['docs'][k]['DistrictID'] + "' data-subpartnerid='" + facility['docs'][k]['SubPartnerID'] + "' data-mfl='" + facility['docs'][k]['CentreSanteId'] + "' data-facility='" + facility['docs'][k]['SubPartnerNom'] + "' >" + facility['docs'][k]['SubPartnerNom'] + " </option>";
+            facilities += "<option id='facility_select' value='" + facility['docs'][k]['SubParnerNom'] + "' data-subpartnerid='" + facility['docs'][k]['SubPartnerID'] + "' data-mfl='" + facility['docs'][k]['CentreSanteId'] + "' data-facility='" + facility['docs'][k]['SubPartnerNom'] + "' >" + facility['docs'][k]['SubPartnerNom'] + " </option>";
             // $("#subcounty").append("<option value='" +list['docs'][a]['DistrictID']  + "'>" + list['docs'][a]['DistrictNom'] + "</option>");
         }//end of for loop
         $("#facility").html(facilities.replace("<option value=''>Select facility</option>", ""));
@@ -434,9 +418,32 @@ function loadSavedRecordData(id, Mflcode) {
         var rowid = id;
         //populate div with respective content
         $("#rowid").val(id);
-
+    var County = $('#county').val();
+    var subcounty = $('#subcounty').val();
+    var SubPartnerNom = $('#facility_select').data('facility');
+    var mflcode = $('#facility_select').data('mfl');
+    var ClientsName = $('#clientName').val();
+    var PatientCCC = mflcode + "_" + $('#patientNumber').val();
+    var Gender = $('#gender').val();
+    var Age = $('#age').val();
+    var PhoneNo = $('#phoneNumber').val();
+    var PhysicalAddress = $('#physicalAddress').val();
+    var DateConfirmed = $('#dateConfirmed').val();
+    var EnrollmentDate = $('#enrollmentDate').val();
+    var ArtStartDate = $('#artStartDate').val();
+    var LastVisitDate = $('#lastVisitDate').val();
+    var ExpectedReturnDate = $('#expectedReturnDate').val();
+    var DateResumed = $('#dateResumed').val();
+    var AttemptedDate = $('#attemptedDate').val();
+    var AttemptedBy = $('#attemptedBy').val();
+    var TypeofFollowUp = $('#typeOfFollowUp').val();
+    var TracingOutcome = $('#tracingOutcome').val();
+    var OutcomeStatus = $('#rco-nro').val();
+    var Comment = $('#comment').val();
+    var patientStatus=$('patientStatus').val();
+    
         //$('select#facilityname').find("option[value='"+mflanddates[0]+"_"+facility+"']").prop('selected', true); 
-        $("#serialNumber").val(doc.serialno);
+       // $("#serialNumber").val(doc.serialno);
         $("#dateOfRegistration").val(doc.registrationdate);
         $("#subCountyRegNo").val(doc.subcounty_regno);
         //$("#county").val(doc.hiv_pos_target_adult);

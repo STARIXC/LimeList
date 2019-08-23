@@ -1,33 +1,42 @@
-$("#dateOfBirth").datepicker({
-    dateFormat: 'dd M yy',
-    numberOfMonths: 1,
-    changeMonth: true,
-    changeYear: true,
-    onSelect: function (selected) {
-        var dt = new Date(selected);
-        dt.setDate(dt.getDate() + 1);
-        var age=(new Date()).getFullYear()-dt.getFullYear();
-       // console.log("THE AGE IS :" +age);
-        document.getElementById('age').value =age;
-      /**  if (age <= 9) {
-       var AgeBracket === "1-9 Yrs";
-       console.log("Age Bracket": +AgeBracket);
-    } else if (age >= 10 && Age <= 14) {
-        var AgeBracket === "10-14 Yrs";
-        console.log("Age Bracket": +AgeBracket);
-    } else if (age >= 15 && Age <= 24) {
-        var AgeBracket === "15-24 Yrs";
-        console.log("Age Bracket": +AgeBracket);
-    } else if (age >= 25 && Age <= 49) {
-       var AgeBracket === "25-49 Yrs";
-       console.log("Age Bracket": +AgeBracket);
-    } else {
-       var  AgeBracket === "50+ Yrs";
-       console.log("Age Bracket": +AgeBracket);
-    }**/
-    
-    }
+
+$('#facility').change(function (event) {
+    var mflcode = $('#facility_select').data('mfl');
+    $("#MFL").text(mflcode + "-");
 });
+
+$('#tracingOutcome').change(function (event) {
+    var outcome = $(this).val();
+    var tOutselect = "<option value=''>Selecte OutcomeStatus</option>";
+    if (outcome === 'Not Reached') {
+        // console.log(counties[s]+"_"+doc.county+"_");
+
+        tOutselect += "<option selected value='Not Reached'>Not Reached</option>" +
+                "<option selected value='Not Reached'>Not Reached</option>";
+    } else if (outcome === 'Reached') {
+        tOutselect += "<option selected value='Restarted on Art'>Restarted on Art</option>" +
+                "<option selected value='Self Transfer'>Self Transfer</option>"+
+                "<option selected value='Transfer Out'>Transfer Out</option>"+
+                "<option selected value='Active'>Active</option>"+
+                "<option selected value='Confirmed Dead'>Confirmed Dead</option>"+
+                "<option selected value='Scheduled to Come'>Scheduled to Come</option>"+
+                "<option selected value='Stopped Treatment'>Stopped Treatment</option>"+
+                "<option selected value='Collecting Drugs from another facility'>Collecting Drugs from another facility</option>"+
+                "<option selected value='On Transit'>On Transit</option>";
+    }
+    
+    $("#rco-nro").html(tOutselect);
+
+
+});
+
+function disableEnable(){
+    var outcome = document.getElementById("rco-nro");
+    if(outcome.value === "Active" ||outcome.value === "Restarted on Art" ){
+        document.getElementById("dateResumed").disabled = false;
+    }else{
+        document.getElementById("dateResumed").disabled = true;
+    }
+}
 
 $("#dateConfirmed").datepicker({
     dateFormat: 'dd M yy',
@@ -42,14 +51,14 @@ $("#dateConfirmed").datepicker({
 });
 $("#enrollmentDate").datepicker({
     dateFormat: 'dd M yy',
-    changeMonth: true,
-    changeYear: true,
+    //changeMonth: true,
+    //changeYear: true,
     numberOfMonths: 1,
-    onSelect: function (selected) {
-        var dt = new Date(selected);
-        dt.setDate(dt.getDate() - 1);
-        $("dateConfirmed").datepicker("option", "maxDate", dt);
+   yearRange: new Date().getFullYear().toString() + ':' + new Date().getFullYear().toString(),
+    onClose: function (selectedDate) {
+        $("#dateConfirmed").datepicker("option", "minDate", selectedDate);
     }
+    
 });
 $("#artStartDate").datepicker({
     dateFormat: 'dd M yy',
@@ -94,7 +103,7 @@ $("#attemptedDate").datepicker({
     changeYear: true,
     yearRange: new Date().getFullYear().toString() + ':' + new Date().getFullYear().toString(),
     onClose: function (selectedDate) {
-       // $("#artdate").datepicker("option", "minDate", selectedDate);
+        // $("#artdate").datepicker("option", "minDate", selectedDate);
     }
 });
 $("#dateResumed").datepicker({
