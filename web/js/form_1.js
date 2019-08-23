@@ -13,8 +13,8 @@ var RemoteDB = 'http://127.0.0.1:5984/ltfu_data/';
 $("#save_data").click(function () {
     $('#loading').html('<img src="images/ajax-loader.gif"> loading...');
     //run saveArticle function, which will run validation, save if validated
-    //validateForm();
-    saveRecord();
+    validateForm();
+    //saveRecord();
 }); //end submit-button click handler
 //
 $("#updatebutton").click(function () {
@@ -31,7 +31,7 @@ function saveRecord() {
 
     //create variables from the form
     var user_id = $('#id').val();
-    var Id =  $('#facility_select').data('mfl') + "_" + $('#patientNumber').val() +"-"+ $('#age').val(); ;
+    var Id = $('#facility_select').data('mfl') + "_" + $('#patientNumber').val() + "-" + $('#age').val();
     var County = $('select#county').data('county');
     var subcounty = $('select#subcounty').data('name');
     var SubPartnerNom = $('#facility_select').data('facility');
@@ -54,7 +54,7 @@ function saveRecord() {
     var TracingOutcome = $('#tracingOutcome').val();
     var OutcomeStatus = $('#rco-nro').val();
     var Comment = $('#comment').val();
-    var patientStatus=$('patientStatus').val();
+    var patientStatus = $('patientStatus').val();
     var record = {
         //createded and updated wihout user input
         _id: Id,
@@ -64,7 +64,7 @@ function saveRecord() {
         subcounty: subcounty,
         SubPartnerNom: SubPartnerNom,
         Mflcode: mflcode,
-       ClientName: ClientsName,
+        ClientName: ClientsName,
         PatientCCC: PatientCCC,
         Gender: Gender,
         Age: Age,
@@ -82,7 +82,7 @@ function saveRecord() {
         OutcomeStatus: OutcomeStatus,
         DateResumedTreatment: DateResumed,
         Comments: Comment,
-        patientStatus:patientStatus,
+        patientStatus: patientStatus,
         timestamp: new Date().getTime(),
         user_id: user_id
     };
@@ -107,17 +107,8 @@ function saveRecord() {
 
 //run all validation functions when called from saverecord
 function validateForm() {
-    $('#form_data').validate({
+   $('#form_data').validate({
         rules: {
-            serialNumber: {
-                required: true
-            },
-            dateOfRegistration: {
-                required: true
-            },
-            subCountyRegNo: {
-                required: true
-            },
             county: {
                 required: true
             },
@@ -127,66 +118,90 @@ function validateForm() {
             facility: {
                 required: true
             },
-            sex: {
+            clientName: {
                 required: true
             },
-            ageOnRegistration: {
+
+            patientNumber: {
                 required: true
             },
-            xray: {
+            gender: {
                 required: true
             },
-            hivStatus: {
+            age: {
                 required: true
             },
-            hivtestDate: {
-                required: function (dat) {
-                    return $("#hivStatus").val() === 'POS';
-                }
-            },
-            dateTreatmentStarted: {
+            phoneNumber: {
                 required: true
             },
-            art: {
+            physicalAddress: {
                 required: true
             },
-            artdate: {
-                required: function (dat) {
-                    return $("#art").val() === "Y";
-                }
-            },
-            sputumSmear: {
+            /** hivtestDate: {
+             required: function (dat) {
+             return $("#hivStaus").val() === 'Pos';
+             }
+             },**/
+            dateConfirmed: {
                 required: true
             },
-            generalExpert: {
+            enrollmentDate: {
                 required: true
             },
-            withinFacility: {
+            artStartDate: {
                 required: true
             },
-            hivModality: {
+            lastVisitDate: {
+                required: true
+            },
+            expectedReturnDate: {
+                required: true
+            },
+            attemptedDate: {
+                required: true
+            },
+            attemptedBy: {
+                required: true
+            },
+            typeOfFollowUp: {
+                required: true
+            },
+            tracingOutcome: {
+                required: true
+            },
+            dateResummed: {
+                required:  function (dat) {
+             return $("#rco-nro").val() === 'Active' ||$("#rco-nro").val() === 'Restarted ART';
+             }
+            },
+            comment: {
+                required: true
+            },
+            patientStatus: {
                 required: true
             }
         },
         messages: {
-            serialNumber: "please enter the serial Number",
-            dateOfRegistration: "Please select the Registration Date",
-            subCountyRegNo: "please Enter the Subcounty Registration Number",
             county: "Please Select the County from the drop down options",
             subcounty: "Please Select the Sub-County from the drop down options",
             facility: "Please Select the Facility from the drop down options",
-            sex: "Please Select the Sex/Gender of the Patient from the drop down options",
-            ageOnRegistration: "Please Select Age of Patient at Registration, (if below 12 months, round up to 1 yr)",
-            xray: "Please Choose if Xray was performed (Y/N)",
-            hivTestDate: "Please select the Registration Date",
-            hivStatus: "Please Choose the patient's HIV Status  (Pos,Neg,ND) ",
-            dateTreatmentStarted: "please Choose the date Treatment Started",
-            art: "Please Choose the ART Status (Y/N)",
-            artdate: "please enter the Art Date",
-            sputumSmear: "Please Enter Sputum Smear Examination 0th Month Result (Pos,Neg,ND)",
-            generalExpert: "Please Select the General Expert From the Drop Down List",
-            withinFacility: "Please Choose if the client tested for HIV within the facility? Y/N ",
-            hivModality: " Please Select the HIV Test Modality (Use the availed dropdown)"
+            clientName: "Please Enter the Client Name",
+            patientNumber: "Please Enter the Unique Patient CCC Number without the MFL Code",
+            gender: "Please Select the Sex/Gender of the Patient from the drop down options",
+            age: "Please Enter Age of Patient at Registration, (if below 12 months, round up to 1 yr)",
+            phone: "Please enter Phone Number in the Format +254700000000",
+            physicalAddress: "Please enter detailed description of the patient Physical Address i.e. Land mark",
+            dateConfirmed: "Please select the Date Patient Confirmed Positive",
+            enrollmentDate: "Please select the Enrollment Date",
+            artStartDate: "Please select the ART Start Date",
+            lastVisitDate: "Please select the Last Visit Date",
+            expectedReturnDate: "Please select the Expected Return Date",
+            attemptedDate: "Please select the Tracing Attempted Date",
+            attemptedBy: "Please Enter the name of the Person who attempted Follow up",
+            typeOfFollowUp: "Please select the Type Follow up Used",
+            tracingOutcome: "Please Choose the Tracing Out Come ",
+            dateResummed: "please Choose the date Client Resumed Treatment",
+            patientStatus: "Please Choose the Patient Status"
         },
         submitHandler: function (form) {
             saveRecord();
@@ -418,8 +433,142 @@ function loadSavedRecordData(id, Mflcode) {
         var rowid = id;
         //populate div with respective content
         $("#rowid").val(id);
-    var County = $('#county').val();
-    var subcounty = $('#subcounty').val();
+        $('select#county').find("option[value='" + doc.County + "']").prop('selected', true);
+        $('select#subcounty').find("option[value='" + doc.subcounty + "']").prop('selected', true);
+        $('select#facility_select').find("option[value='" + doc.subPartnerNom + "']").prop('selected', true);
+        $("#clientName").val(doc.ClientsName);
+        $("#patientNumber").val(doc.PatientCCC);
+        $('select#gender').find("option[value='" + doc.Gender + "']").prop('selected', true);
+        $("#ageOnRegistration").val(doc.Age);
+        $("#phoneNumber").val(doc.PhoneNo);
+        $("#physicalAddress").val(doc.PhysicalAddress);
+        $("#dateConfirmed").val(doc.DateConfirmed);
+        $("#enrollmentDate").val(doc.EnrollmentDate);
+        $("#artStartDate").val(doc.ArtStartDate);
+        $("#LastVisitDate").val(doc.lastVisitDate);
+        $("#expectedReturnDate").val(doc.ExpectedReturnDate);
+        $("#attemptedDate").val(doc.AttemptedDate);
+        $("#attemtedBy").val(doc.AttemptedBy);
+        $("#typeOfFollowUp").find("option[value='" + doc.Tfollowup + "']").prop('selected', true);
+        $("#tracingOutcome").find("option[value='" + doc.TracingOutcome + "']").prop('selected', true);
+        $("#rco-nro").find("option[value='" + doc.OutcomeStatus + "']").prop('selected', true);
+        $("#dateResumed").val(doc.DateRessumedTreatment);
+        $("#comment").val(doc.Comments);
+        $("#patientStatus").find("option[value='" + doc.patientStatus + "']").prop('selected', true);
+        $("#save_data").hide();
+        $("#updatebutton").show();
+
+
+    });
+
+}
+
+//run all validation functions when called from saverecord
+function validateEditForm() {
+    $('#form_data').validate({
+        rules: {
+            county: {
+                required: true
+            },
+            subcounty: {
+                required: true
+            },
+            facility: {
+                required: true
+            },
+            clientName: {
+                required: true
+            },
+
+            patientNumber: {
+                required: true
+            },
+            gender: {
+                required: true
+            },
+            age: {
+                required: true
+            },
+            phoneNumber: {
+                required: true
+            },
+            physicalAddress: {
+                required: true
+            },
+            /** hivtestDate: {
+             required: function (dat) {
+             return $("#hivStaus").val() === 'Pos';
+             }
+             },**/
+            dateConfirmed: {
+                required: true
+            },
+            enrollmentDate: {
+                required: true
+            },
+            artStartDate: {
+                required: true
+            },
+            lastVisitDate: {
+                required: true
+            },
+            expectedReturnDate: {
+                required: true
+            },
+            attemptedDate: {
+                required: true
+            },
+            attemptedBy: {
+                required: true
+            },
+            typeOfFollowUp: {
+                required: true
+            },
+            tracingOutcome: {
+                required: true
+            },
+            dateResummed: {
+                required: true
+            },
+            patientStatus: {
+                required: true
+            }
+        },
+        messages: {
+            county: "Please Select the County from the drop down options",
+            subcounty: "Please Select the Sub-County from the drop down options",
+            facility: "Please Select the Facility from the drop down options",
+            clientName: "Please Enter the Client Name",
+            patientNumber: "Please Enter the Unique Patient CCC Number without the MFL Code",
+            gender: "Please Select the Sex/Gender of the Patient from the drop down options",
+            age: "Please Enter Age of Patient at Registration, (if below 12 months, round up to 1 yr)",
+            phone: "Please enter Phone Number in the Format +254700000000",
+            physicalAddress: "Please enter detailed description of the patient Physical Address i.e. Land mark",
+            dateConfirmed: "Please select the Date Patient Confirmed Positive",
+            enrollmentDate: "Please select the Enrollment Date",
+            artStartDate: "Please select the ART Start Date",
+            lastVisitDate: "Please select the Last Visit Date",
+            expectedReturnDate: "Please select the Expected Return Date",
+            attemptedDate: "Please select the Tracing Attempted Date",
+            attemptedBy: "Please Enter the name of the Person who attempted Follow up",
+            typeOfFollowUp: "Please select the Type Follow up Used",
+            tracingOutcome: "Please Choose the Tracing Out Come ",
+            dateResummed: "please Choose the date Client Resumed Treatment",
+            patientStatus: "Please Choose the Patient Status"
+        },
+        submitHandler: function (form) {
+            saveEditRecord();
+        }
+
+    });
+}
+function saveEditRecord(id, County, subcounty, SubPartnerNom, mflcode, ClientName, PatientCCC, Gender, Age, PhoneNo, PhysicalAddress, DateConfirmed, EnrollmentDate, ArtStartDate, LastVisit, ExpectedReturn, AttemptedDate, AttemptedBy, Tfollowup, TracingOutcome, outcomeStatus, DateResumedTreatment, Comments, PatientStatus, user_id) {
+
+    //create variables from the form
+    var user_id = $('#id').val();
+    var Id = $('#facility_select').data('mfl') + "_" + $('#patientNumber').val() + "-" + $('#age').val();
+    var County = $('select#county').data('county');
+    var subcounty = $('select#subcounty').data('name');
     var SubPartnerNom = $('#facility_select').data('facility');
     var mflcode = $('#facility_select').data('mfl');
     var ClientsName = $('#clientName').val();
@@ -440,228 +589,38 @@ function loadSavedRecordData(id, Mflcode) {
     var TracingOutcome = $('#tracingOutcome').val();
     var OutcomeStatus = $('#rco-nro').val();
     var Comment = $('#comment').val();
-    var patientStatus=$('patientStatus').val();
-    
-        //$('select#facilityname').find("option[value='"+mflanddates[0]+"_"+facility+"']").prop('selected', true); 
-       // $("#serialNumber").val(doc.serialno);
-        $("#dateOfRegistration").val(doc.registrationdate);
-        $("#subCountyRegNo").val(doc.subcounty_regno);
-        //$("#county").val(doc.hiv_pos_target_adult);
-        // $("#subcounty").val(doc.hiv_pos_target_total);
-        $('select#facility_select').find("option[value='" + doc.subPartnerNom + "']").prop('selected', true);
-        $('select#sex').find("option[value='" + doc.sex + "']").prop('selected', true);
-        $("#ageOnRegistration").val(doc.age);
-        $("#xray").val(doc.xray);
-        $('select#hivStatus').find("option[value='" + doc.hivstatus + "']").prop('selected', true);
-        $("#hivTestDate").val(doc.hivtestdate);
-        $("#dateTreatmentStarted").val(doc.treatmentdate);
-        $('select#art').find("option[value='" + doc.artstatus + "']").prop('selected', true);
-        $("#artdate").val(doc.artdate);
-        $('select#sputumSmear').find("option[value='" + doc.smear0 + "']").prop('selected', true);
-        $("#generalExpert").val(doc.genexpert);
-        $("#withinFacility").val(doc.tested_within_facility);
-        $('select#hivModality').find("option[value='" + doc.initial_modality + "']").prop('selected', true);
-
-        $("#save_data").hide();
-        $("#updatebutton").show();
-
-    });
-
-}
-
-//run all validation functions when called from saverecord
-function validateEditForm() {
-    $('#form_data').validate({
-        rules: {
-            serialNumber: {
-                required: true
-            },
-            dateOfRegistration: {
-                required: true
-            },
-            subCountyRegNo: {
-                required: true
-            },
-            county: {
-                required: true
-            },
-            subcounty: {
-                required: true
-            },
-            facility: {
-                required: true
-            },
-            sex: {
-                required: true
-            },
-            ageOnRegistration: {
-                required: true
-            },
-            xray: {
-                required: true
-            },
-            hivStatus: {
-                required: true
-            },
-            hivtestDate: {
-                required: function (dat) {
-                    return $("#hivStaus").val() === 'Pos';
-                }
-            },
-            dateTreatmentStarted: {
-                required: true
-            },
-            art: {
-                required: true
-            },
-            artdate: {
-                required: function (dat) {
-                    return $("#art").val() === "Y";
-                }
-            },
-            sputumSmear: {
-                required: true
-            },
-            generalExpert: {
-                required: true
-            },
-            withinFacility: {
-                required: true
-            },
-            hivModality: {
-                required: true
-            }
-        },
-        messages: {
-            serialNumber: "please enter the serial Number",
-            dateOfRegistration: "Please select the Registration Date",
-            subCountyRegNo: "please Enter the Subcounty Registration Number",
-            county: "Please Select the County from the drop down options",
-            subcounty: "Please Select the Sub-County from the drop down options",
-            facility: "Please Select the Facility from the drop down options",
-            sex: "Please Select the Sex/Gender of the Patient from the drop down options",
-            ageOnRegistration: "Please Select Age of Patient at Registration, (if below 12 months, round up to 1 yr)",
-            xray: "Please Choose if Xray was performed (Y/N)",
-            hivTestDate: "Please select the Registration Date",
-            hivStatus: "Please Choose the patient's HIV Status  (Pos,Neg,ND) ",
-            dateTreatmentStarted: "please Choose the date Treatment Started",
-            art: "Please Choose the ART Status (Y/N)",
-            artdate: "please enter the Art Date",
-            sputumSmear: "Please Enter Sputum Smear Examination 0th Month Result (Pos,Neg,ND)",
-            generalExpert: "Please Select the General Expert From the Drop Down List",
-            withinFacility: "Please Choose if the client tested for HIV within the facility? Y/N ",
-            hivModality: " Please Select the HIV Test Modality (Use the availed dropdown)"
-        },
-        submitHandler: function (form) {
-            saveEditRecord();
-        }
-
-    });
-}
-function saveEditRecord(id, SubPartnerID, registrationdate, quarter, year, sex, age, treatmentdate, hivstatus, hivtestdate, artstatus, artdate, treatmentoutcome, outcomedate, timestamp, Mflcode, SubPartnerNom, supporttype, tbtype, patienttype, smear0, smear2_3, smear5, smear6_8, genexpert, tested_within_facility, initial_modality, subcounty_regno, serialno, xray, user_id) {
-
-    //create variables from the form
-    var user_id = $('#id').val();
-    var Id = $('#patientNumber').val() + "_" + $('#age').val();
-    var County = $('#county').val();
-    var subcounty = $('#subcounty').val();
-    var ward = $('#facility_select').data('ward');
-    var SubPartnerNom = $('#facility_select').data('facility');
-    var mflcode = $('#facility_select').data('mfl');
-    //var subPartnerID = $('#facility_select').data('subpartnerid');
-    var ClientsName = $('#clientName').val();
-    var PatientCCC = $('#patientNumber').val();
-    var Gender = $('#gender').val();
-    var PhoneNo = $('#phoneNumber').val();
-    var PhysicalAddress = $('#physicalAddress').val();
-    var DOB = $('#dateOfBirth').val();
-    var UniqueIdentifier = $('#uniqueIdentifier').val();
-    var UniqueDups = $('#uniqueIdDuplicates').val();
-    var Age = $('#age').val();
-    var AgeBracket = $('#ageBracket').val();
-
-
-    var DateConfirmed = $('#dateConfirmed').val();
-    var EnrollmentDate = $('#enrollmentDate').val();
-    var ArtStartDate = $('#artStartDate').val();
-    var LastVisitDate = $('#lastVisitDate').val();
-    var ExpectedReturnDate = $('#expectedReturnDate').val();
-    var AttemptedDate = $('#attemptedDate').val();
-    var AttemptedBy = $('#attemptedBy').val();
-    var PhoneCall = $('#phoneCall').val();
-    var TracingOutcome = $('#tracingOutcome').val();
-    var NotReached = $('#notReachedStatus').val();
-    var DateResumed = $('#dateResumed').val();
-    var Comment = $('#comment').val();
-    //var SubCountyRegNo=       $('#id').val()
+    var patientStatus = $('#patientStatus').val();
 
     LocalDB.get(id).then(function (doc) {
         if (id !== 'null' && id !== '') {
             doc._id = id;
-
+            //these field are updated by the user from the form
             doc.id = Id;
             doc.County = County;
             doc.subcounty = subcounty;
-            doc.ward = ward;
             doc.SubPartnerNom = SubPartnerNom;
             doc.Mflcode = mflcode;
-            //SubPartnerID= subPartnerID;
             doc.ClientName = ClientsName;
             doc.PatientCCC = PatientCCC;
             doc.Gender = Gender;
+            doc.Age = Age;
             doc.PhoneNo = PhoneNo;
             doc.PhysicalAddress = PhysicalAddress;
-            doc.DOB = DOB;
-            doc.UniqueIdentifier = UniqueIdentifier;
-            UniqueDups = UniqueDups;
-            Age = Age;
-            AgeBracket = AgeBracket;
-            DateConfirmed = DateConfirmed;
-            EnrollmentDate = EnrollmentDate;
-            ARTStartDate = ArtStartDate;
-            LastVisit = LastVisitDate;
-            ExpectedReturn = ExpectedReturnDate;
-            AttemptedDate = AttemptedDate;
-            AttemptedBy = AttemptedBy;
-            PhoneCall = PhoneCall;
-            TracingOutcome = TracingOutcome;
-            NotReachedStatus = NotReached;
-            DateResumedTreatment = DateResumed;
-            Comments = Comment;
-            timestamp = new Date().getTime();
-            user_id = user_id;
-            doc.id = Id;
-            doc.SubPartnerID = subPartnerID;
-            doc.registrationdate = RegDate;
-            doc.quarter = null;
-            doc.year = null;
-            doc.sex = Sex;
-            doc.age = Age;
-            doc.treatmentdate = TreatmentDate;
-            doc.hivstatus = HIVStatus;
-            doc.hivtestdate = HIVTestDate;
-            doc.artstatus = ArtStatus;
-            doc.artdate = ArtDate;
-            doc.treatmentoutcome = null;
-            doc.outcomedate = null;
+            doc.DateConfirmed = DateConfirmed;
+            doc.EnrollmentDate = EnrollmentDate;
+            doc.ARTStartDate = ArtStartDate;
+            doc.LastVisit = LastVisitDate;
+            doc.ExpectedReturn = ExpectedReturnDate;
+            doc.AttemptedDate = AttemptedDate;
+            doc.AttemptedBy = AttemptedBy;
+            doc.Tfollowup = TypeofFollowUp;
+            doc.TracingOutcome = TracingOutcome;
+            doc.OutcomeStatus = OutcomeStatus;
+            doc.DateResumedTreatment = DateResumed;
+            doc.Comments = Comment;
+            doc.patientStatus = patientStatus;
             doc.timestamp = new Date().getTime();
-            doc.Mflcode = mflcode;
-            doc.SubPartnerNom = SubPartnerNom;
-            doc.supporttype = SupportType;
-            doc.tbtype = null;
-            doc.patienttype = null;
-            doc.smear0 = Smear0;
-            doc.smear2_3 = null;
-            doc.smear5 = null;
-            doc.smear6_8 = null;
-            doc.genexpert = GenExpert;
-            doc.tested_within_facility = WithinFacility;
-            doc.initial_modality = HIVModality;
-            doc.subcounty_regno = SubCountyRegNo;
-            doc.serialno = serialNumber;
-            doc.xray = Xray;
             doc.user_id = user_id;
-
             //put the records back
             return LocalDB.put(doc, function callback(error, result) {
                 if (!error) {

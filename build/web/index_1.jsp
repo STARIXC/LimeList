@@ -184,7 +184,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="clientName"><font color='red'> <b> * </b> </font> Client Name</label>
-                                        <input type="text" class="form-control" id="clientName" name="clientNme" placeholder=" Enter Client Name">
+                                        <input type="text" class="form-control" id="clientName" name="clientName" placeholder=" Enter Client Name">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -335,7 +335,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="patientStatus">Patient Status</label>
-                                        <input type="text" class="form-control" id="patientStatus" name="patientStatus">
+                                      
+                                        <select class="form-control" id="patientStatus" name="patientStatus">
+                                            <option  value=''>Select the Appropriate Status</option>
+                                            <option  value='Restarted on Art'>Restarted on Art</option>
+                                            <option  value='Self Transfer'>Self Transfer</option>
+                                            <option  value='Transfer Out'>Transfer Out</option>
+                                            <option  value='Active'>Active</option>
+                                            <option  value='Confirmed Dead'>Confirmed Dead</option>
+                                            <option  value='Scheduled to Come'>Scheduled to Come</option>
+                                            <option  value='Stopped Treatment'>Stopped Treatment</option>
+                                            <option  value='Collecting Drugs from another facility'>Collecting Drugs from another facility</option>
+                                            <option  value='On Transit'>On Transit</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

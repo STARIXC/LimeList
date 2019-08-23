@@ -6,22 +6,22 @@ $('#facility').change(function (event) {
 
 $('#tracingOutcome').change(function (event) {
     var outcome = $(this).val();
-    var tOutselect = "<option value=''>Selecte OutcomeStatus</option>";
+    var tOutselect = "<option value=''>Select Outcome Status</option>";
     if (outcome === 'Not Reached') {
         // console.log(counties[s]+"_"+doc.county+"_");
 
-        tOutselect += "<option selected value='Not Reached'>Not Reached</option>" +
-                "<option selected value='Not Reached'>Not Reached</option>";
+        tOutselect += "<option  value='Not Reached'>Not Reached</option>" +
+                "<option  value='No Locator Details'>No Locator Details</option>";
     } else if (outcome === 'Reached') {
-        tOutselect += "<option selected value='Restarted on Art'>Restarted on Art</option>" +
-                "<option selected value='Self Transfer'>Self Transfer</option>"+
-                "<option selected value='Transfer Out'>Transfer Out</option>"+
-                "<option selected value='Active'>Active</option>"+
-                "<option selected value='Confirmed Dead'>Confirmed Dead</option>"+
-                "<option selected value='Scheduled to Come'>Scheduled to Come</option>"+
-                "<option selected value='Stopped Treatment'>Stopped Treatment</option>"+
-                "<option selected value='Collecting Drugs from another facility'>Collecting Drugs from another facility</option>"+
-                "<option selected value='On Transit'>On Transit</option>";
+        tOutselect += "<option value='Restarted on Art'>Restarted on Art</option>" +
+                "<option  value='Self Transfer'>Self Transfer</option>"+
+                "<option  value='Transfer Out'>Transfer Out</option>"+
+                "<option  value='Active'>Active</option>"+
+                "<option  value='Confirmed Dead'>Confirmed Dead</option>"+
+                "<option  value='Scheduled to Come'>Scheduled to Come</option>"+
+                "<option  value='Stopped Treatment'>Stopped Treatment</option>"+
+                "<option  value='Collecting Drugs from another facility'>Collecting Drugs from another facility</option>"+
+                "<option  value='On Transit'>On Transit</option>";
     }
     
     $("#rco-nro").html(tOutselect);
