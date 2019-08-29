@@ -242,18 +242,20 @@ function addRecord(record) {
             "</td><td>" + data.OutcomeStatus +
             "</td><td>" + data.DateResumedTreatment +
             "</td><td>" + data.Comments +
-            "</td><td><button title='Edit!' class='btn-info' href='#nav-home' data-toggle='tab' onclick='loadSavedRecordData(\"" + data._id + "\",\"" + data.Mflcode + "\",\"no\")'><i class='glyphicon glyphicon-edit'></i></button>" +
-            "<button id='delete' title='Delete!' class='btn-danger' data-id='" + data._id + "'><i class='glyphicon glyphicon-trash'></i></button>" +
+            "</td><td><button title='Edit!' class='btn-info' href='#home' data-toggle='tab' onclick='loadSavedRecordData(\"" + data._id + "\",\"" + data.Mflcode + "\",\"no\")'><i class='glyphicon glyphicon-edit'></i></button>" +
+            "<button id='delete' title='Delete!' class='btn-danger' data-id='" + data._id + "' onclick='deleteRecord("+data._id+")'><i class='glyphicon glyphicon-trash'></i></button>" +
             "</td></tr>";
     // $('#TableResults tbody').append(newdata);
     $('#example tbody').append(newdata);
     //$('#example-1 tbody ').append(newdata);
+    
 }
 
 function deleteRecord(id) {
+
     LocalDB.get(id).then(function (doc) {
-        LocalDB.remove(doc).then(console.log).catch(console.log);
-    });
+  return LocalDB.remove(doc._id, doc._rev).then(alert("Record Deleted successfully")).catch();
+});
 }
 function ShowRecords() {
     //get all data from the db
